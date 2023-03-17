@@ -1,0 +1,10 @@
+services:
+  pascal:
+    image: erikperkins/pascal:latest
+    ports:
+      - 80:80
+    environment:
+      DATABASE_URL: ecto://postgres@postgres/postgres
+      PORT: 80
+
+

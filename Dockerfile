@@ -36,6 +36,11 @@ ENV MIX_ENV="prod"
 
 # install mix dependencies
 COPY mix.exs mix.lock ./
+
+# get compiled files from earlier step
+COPY _build _build
+COPY deps deps
+
 RUN mix deps.get --only $MIX_ENV
 RUN mkdir config
 

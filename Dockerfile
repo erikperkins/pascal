@@ -63,9 +63,6 @@ COPY config/runtime.exs config/
 COPY rel rel
 RUN mix release
 
-RUN touch secret.key.base
-RUN echo `mix phx.gen.secret` >> /app/_build/${MIX_ENV}/rel/pascal/secret.key.base
-
 # start a new build stage so that the final image will only contain
 # the compiled release and other runtime necessities
 FROM ${RUNNER_IMAGE}
@@ -91,4 +88,4 @@ COPY --from=builder --chown=nobody:root /app/_build/${MIX_ENV}/rel/pascal ./
 
 USER nobody
 
-CMD ["sh", "-c", "SECRET_KEY_BASE=`cat secret.key.base` /app/bin/server"]
+CMD /app/bin/server

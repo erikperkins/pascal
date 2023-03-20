@@ -18,6 +18,12 @@ defmodule PascalWeb.Router do
     pipe_through :browser
 
     get "/", PageController, :home
+
+    get "/exception", PageController, :exception
+
+    get "/error", PageController, :error
+
+    get "/message", PageController, :message
   end
 
   # Other scopes may use custom stacks.

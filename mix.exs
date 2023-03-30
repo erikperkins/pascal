@@ -19,7 +19,7 @@ defmodule Pascal.MixProject do
   def application do
     [
       mod: {Pascal.Application, []},
-      extra_applications: [:logger, :runtime_tools]
+      extra_applications: [:logger, :runtime_tools, :kaffe]
     ]
   end
 
@@ -49,7 +49,8 @@ defmodule Pascal.MixProject do
       {:jason, "~> 1.2"},
       {:plug_cowboy, "~> 2.5"},
       {:sentry, "~> 8.0"},
-      {:hackney, "~> 1.8"}
+      {:hackney, "~> 1.8"},
+      {:kaffe, "~> 1.0"}
     ]
   end
 

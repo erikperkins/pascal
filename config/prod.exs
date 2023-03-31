@@ -11,7 +11,7 @@ import Config
 # before starting your production server.
 config :pascal, PascalWeb.Endpoint,
   cache_static_manifest: "priv/static/cache_manifest.json",
-  check_origin: ["https://cauchy.link"]
+  check_origin: ["https://cauchy.link"] # check_origin: :conn
 
 
 # Configures Swoosh API Client

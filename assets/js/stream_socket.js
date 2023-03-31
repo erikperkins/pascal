@@ -62,7 +62,7 @@ let messagesContainer = document.querySelector("#messages")
 
 channel.on("trip", payload => {
   let messageItem = document.createElement("p")
-  messageItem.innerText = `[${Date()}] ${payload.body}`
+  messageItem.innerText = `${JSON.stringify(payload)}`
   messagesContainer.appendChild(messageItem)
 })
 

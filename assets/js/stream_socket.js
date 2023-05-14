@@ -62,8 +62,13 @@ let messagesContainer = document.querySelector("#messages")
 
 channel.on("trip", payload => {
   let messageItem = document.createElement("p")
-  messageItem.innerText = `${JSON.stringify(payload)}`
+  messageItem.innerText = `Tip: \$${payload["tip_amount"]}`
   messagesContainer.appendChild(messageItem)
+
+  let children = Array.from(messagesContainer.children)
+  let tail = children.slice(Math.max(children.length - 5, 0))
+
+  messagesContainer.replaceChildren(...tail)
 })
 
 channel.join()

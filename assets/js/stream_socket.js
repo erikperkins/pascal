@@ -62,7 +62,7 @@ let messagesContainer = document.querySelector("#messages")
 
 channel.on("trip", payload => {
   let messageItem = document.createElement("p")
-  messageItem.innerText = `Tip: \$${payload["tip_amount"]}`
+  messageItem.innerText = `Tip: \$${payload["tip_amount"]}, Time: ${payload["tpep_dropoff_datetime"]}`
   messagesContainer.appendChild(messageItem)
 
   let children = Array.from(messagesContainer.children)

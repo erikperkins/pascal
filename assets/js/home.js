@@ -10,8 +10,6 @@ let messagesContainer = document.querySelector("#messages")
 fetch("json/nyc_taxi_zones.geojson")
   .then(response => response.json())
   .then(json => {
-    let locations = {}
-    json.features.forEach(item => locations[item.properties.location_id] = item.properties.zone)
 
     const chartWidth = 800
     const chartHeight = 600
@@ -42,25 +40,90 @@ fetch("json/nyc_taxi_zones.geojson")
       .attr('stroke', landStroke)
       .attr('stroke-width', 1)
 
-    let centroids = json.features.map(feature => pathGenerator.centroid(feature))
+    let locations = {}
+    json.features.forEach(feature => {
+      locations[feature.properties.location_id] = {
+        'zone': feature.properties.zone,
+        'centroid': pathGenerator.centroid(feature),
+      }
+    })
 
-    d3.selectAll(".centroid").data(centroids)
-      .enter().append("circle")
-      .attr("class", "centroid")
-      .attr("fill", "black")
-      .attr("r", 50)
-      .attr("cx", d => d[0])
-      .attr("cy", d => d[1])
+    let tripContainer = []
 
     d3channel.on("trip", payload => {
-      let messageItem = document.createElement("p")
-      messageItem.innerText = `Tip: \$${payload["tip_amount"]}, Pickup: ${locations[payload["pickup_location_id"]]}, Dropoff: ${locations[payload["dropoff_location_id"]]}`
+      let messageItem = document.createElement("tr")
+
+      let tip = document.createElement("td")
+      tip.innerText = `Tip: \$${payload.tip_amount.toFixed(2)}`
+      messageItem.appendChild(tip)
+
+      let pickup = document.createElement("td")
+      pickup.style.cssText = "color:royalblue;"
+      pickup.innerText = `Pickup: ${locations[payload.pickup_location_id]?.zone}`
+      messageItem.appendChild(pickup)
+
+      let dropoff = document.createElement("td")
+      dropoff.style.cssText = "color:orange;"
+      dropoff.innerText = `Dropoff: ${locations[payload.dropoff_location_id]?.zone}`
+      messageItem.appendChild(dropoff)
+
       messagesContainer.appendChild(messageItem)
 
       let children = Array.from(messagesContainer.children)
       let tail = children.slice(Math.max(children.length - 5, 0))
 
       messagesContainer.replaceChildren(...tail)
+
+
+      let datum = {
+        'pickup': locations[payload.pickup_location_id]?.centroid,
+        'dropoff': locations[payload.dropoff_location_id]?.centroid
+      }
+
+      tripContainer.push(datum)
+      let trips = tripContainer.slice(Math.max(tripContainer.length - 5, 0))
+
+//      let lines = svg.selectAll('.trip').data(trips)
+//      lines.attr('class', 'trip')
+//        .attr('d', d => 'M' + d.pickup + 'L' + d.dropoff)
+//        .attr('stroke', 'firebrick')
+//        .attr('stroke-width', 2)
+
+//        .attr('opacity', 0)
+//        .transition()
+//        .duration(500)
+//        .attr('opacity', 1)
+//        .transition()
+//        .delay(1000)
+//        .duration(500)
+//        .attr('opacity', 0)
+
+//      lines.enter().append('path')
+//        .attr('class', 'trip')
+//        .attr('d', d => 'M' + d.pickup + 'L' + d.dropoff)
+//        .attr('stroke', 'firebrick')
+//        .attr('stroke-width', 2)
+
+//        .attr('opacity', 0)
+//        .transition()
+//        .duration(500)
+//        .attr('opacity', 1)
+//        .transition()
+//        .delay(1000)
+//        .duration(500)
+//        .attr('opacity', 0)
+
+//        .attr('stroke-dasharray', d => Math.sqrt( (d.pickup[0] - d.dropoff[0])**2 + (d.pickup[1] - d.dropoff[1])**2))
+//        .attr('stroke-dashoffset', d => Math.sqrt( (d.pickup[0] - d.dropoff[0])**2 + (d.pickup[1] - d.dropoff[1])**2))
+//        .transition()
+//        .duration(500)
+//        .attr('stroke-dashoffset', 0)
+//        .transition()
+//        .duration(500)
+//        .delay(1000)
+
+//      lines.exit()
+//        .remove()
 
       d3.select(`#zone-${payload['pickup_location_id']}`)
         .transition()

@@ -16,9 +16,14 @@ defmodule Pascal.Application do
       # Start Finch
       {Finch, name: Pascal.Finch},
       # Start the Endpoint (http/https)
-      PascalWeb.Endpoint
+      PascalWeb.Endpoint,
       # Start a worker by calling: Pascal.Worker.start_link(arg)
       # {Pascal.Worker, arg}
+      %{
+        id: Kaffe.GroupMemberSupervisor,
+        start: {Kaffe.GroupMemberSupervisor, :start_link, []},
+        type: :supervisor
+      }
     ]
 
     # See https://hexdocs.pm/elixir/Supervisor.html

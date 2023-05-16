@@ -9,7 +9,7 @@ defmodule PascalWeb.PageController do
 
   def exception(conn, _params) do
     _value = 1 / 0
-    render(conn, :home, layout: false)
+    render(conn, :error, layout: false)
   end
 
   def error(conn, _params) do
@@ -19,7 +19,7 @@ defmodule PascalWeb.PageController do
       exception ->
         Sentry.capture_exception(exception, [stacktrace: __STACKTRACE__, extra: %{extra: "Division by zero"}])
     end
-    render(conn, :home, layout: false)
+    render(conn, :error, layout: false)
   end
 
   def message(conn, _params) do

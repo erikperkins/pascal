@@ -1,14 +1,24 @@
-<h1 class="bg-white border-gray-200 font-bold text-center text-4xl">
-  Cauchy
-</h1>
-
-<br/>
-
-<p class="text-center italic">En cours de construction.</p>
-
-<br/>
-
-
-<div class="object-center">
-  <img class="mx-auto w-[600px]" src={static_path(@conn, "/images/ducreux.jpg")}>
+<div class="flex items-center justify-center h-16">
+  <p id="construction" class="text-center italic">En cours de construction.</p>
 </div>
+
+<div class="grid place-items-center" >
+  <svg id="map" width="800" height="600"></svg>
+</div>
+
+<div class="grid h-48 place-items-center">
+  <table id="messages" class="border-separate"></table>
+</div>
+
+<div class="grid grid-cols-3">
+  <p></p>
+  <p class="place-self-center">
+    New York City's Taxi and Limousine Commission divides the city up into 263 taxi zones. Data from
+    each cab trip is made publicly available on the city's <a href="https://www.nyc.gov/site/tlc/about/tlc-trip-record-data.page">website</a>.
+    This page shows a map of the taxi zones, with a live stream of selected trip data.
+  </p>
+  <p></p>
+</div>
+
+
+<script defer phx-track-static type="text/javascript" src={~p"/assets/home.js"}></script>

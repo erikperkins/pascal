@@ -31,7 +31,7 @@ config :esbuild,
   version: "0.14.41",
   default: [
     args:
-      ~w(js/app.js --bundle --target=es2017 --outdir=../priv/static/assets --external:/fonts/* --external:/images/*),
+      ~w(js/app.js js/home.js --bundle --target=es2017 --outdir=../priv/static/assets --external:/fonts/* --external:/images/*),
     cd: Path.expand("../assets", __DIR__),
     env: %{"NODE_PATH" => Path.expand("../deps", __DIR__)}
   ]
@@ -55,6 +55,17 @@ config :logger, :console,
 
 # Use Jason for JSON parsing in Phoenix
 config :phoenix, :json_library, Jason
+
+config :kaffe,
+  consumer: [
+    endpoints: ["kafka-service.kafka.svc.cluster.local": 9092],
+    topics: ["trips"],
+    consumer_group: "pascal",
+    message_handler: Pascal.Taxi.Consumer,
+    offset_reset_policy: :reset_to_latest,
+    max_bytes: 500_000,
+    worker_allocation_strategy: :worker_per_topic_partition
+  ]
 
 # Import environment specific config. This must remain at the bottom
 # of this file so it overrides the configuration defined above.

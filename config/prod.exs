@@ -21,7 +21,7 @@ config :logger, level: :info
 # of environment variables, is done on config/runtime.exs.
 
 config :sentry,
-  dsn: "https://e190de02bd184458ae059b902fd476f8@sentry.cauchy.link/2",
+  dsn: "https://08e56c657060435eac230aa49fb4e1eb@sentry.cauchy.link/4",
   environment_name: :prod,
   enable_source_code_context: true,
   root_source_code_path: File.cwd!(),

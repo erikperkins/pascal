@@ -53,9 +53,13 @@ fetch("json/nyc_taxi_zones.geojson")
     d3channel.on("trip", payload => {
       let messageItem = document.createElement("tr")
 
-      let tip = document.createElement("td")
-      tip.innerText = `Tip: \$${payload.tip_amount.toFixed(2)}`
-      messageItem.appendChild(tip)
+      let predicted = document.createElement("td")
+      predicted.innerText = `Predicted tip: \$${payload.predicted_tip.toFixed(2)}`
+      messageItem.appendChild(predicted)
+
+      let actual = document.createElement("td")
+      actual.innerText = `Actual tip: \$${payload.tip_amount.toFixed(2)}`
+      messageItem.appendChild(actual)
 
       let pickup = document.createElement("td")
       pickup.style.cssText = "color:royalblue;"

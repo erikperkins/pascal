@@ -59,7 +59,7 @@ config :phoenix, :json_library, Jason
 config :kaffe,
   consumer: [
     endpoints: ["kafka-service.kafka.svc.cluster.local": 9092],
-    topics: ["trips"],
+    topics: ["tips"],
     consumer_group: "pascal",
     message_handler: Pascal.Taxi.Consumer,
     offset_reset_policy: :reset_to_latest,

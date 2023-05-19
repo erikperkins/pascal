@@ -19,6 +19,10 @@ defmodule PascalWeb.Router do
 
     get "/", PageController, :home
 
+    get  "/admin", PageController, :admin
+
+    get "/taxi", PageController, :taxi
+
     get "/exception", PageController, :exception
 
     get "/error", PageController, :error

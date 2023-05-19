@@ -1,25 +1,7 @@
-<div class="flex items-center justify-center h-16">
-  <p id="construction" class="text-center italic">En cours de construction.</p>
+<div class="grid grid-cols-1 gap-16 place-items-center font-semibold text-xl">
+  <div>
+    <a href="/taxi">New York City Taxi Data</a>
+  </div>
 </div>
 
-<div class="grid place-items-center" >
-  <svg id="map" width="800" height="600"></svg>
-</div>
-
-<div class="grid h-48 place-items-center">
-  <table id="messages" class="border-separate"></table>
-</div>
-
-<div class="grid grid-cols-3">
-  <p></p>
-  <p class="place-self-center">
-    New York City's Taxi and Limousine Commission divides the city up into 263 taxi zones. Data from
-    each cab trip is made publicly available on the city's <a href="https://www.nyc.gov/site/tlc/about/tlc-trip-record-data.page">website</a>.
-    This page shows a map of the taxi zones, with a live stream of selected trip data, and a prediction
-    of the tip amount determined by a gradient boosted decision tree.
-  </p>
-  <p></p>
-</div>
-
-
-<script defer phx-track-static type="text/javascript" src={~p"/assets/home.js"}></script>
+<script defer phx-track-static type="text/javascript" src={~p"/assets/app.js"}></script>

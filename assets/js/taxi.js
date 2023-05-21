@@ -53,8 +53,8 @@ fetch("json/nyc_taxi_zones.geojson")
       return row.innerHTML
     }
 
-    const chartWidth = 800
-    const chartHeight = 600
+    const chartWidth = 672
+    const chartHeight = 504
     const backgroundColor = "aliceblue"
     const landColor = "linen"
     const landStroke = "gray"

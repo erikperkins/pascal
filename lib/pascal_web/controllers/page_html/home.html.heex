@@ -1,24 +1,42 @@
-<div class="flex items-center justify-center h-16">
-  <p id="construction" class="text-center italic">En cours de construction.</p>
+<div class="grid grid-cols-1 gap-16 place-items-center">
+  <div>
+    <p>
+      This website is an exhibition of machine learning and ML ops projects. The web application and
+      associated microservices are deployed in an AWS <a class="font-medium text-blue-600 dark:text-blue-500 hover:underline" href="https://grafana.cauchy.link" target = "_blank">Kubernetes cluster</a>.
+      The system is supported by a number of <a class="font-medium text-blue-600 dark:text-blue-500 hover:underline" href="/admin" target = "_blank">services</a>
+      for CI/CD, monitoring, alerting, unstructured storage, etc. This system is designed with a focus
+      on scalability, resiliency, and streaming data. This website is a working example of the modern
+      data science full stack.
+    </p>
+    <br/>
+    <p>
+      The domain name, <emph class="font-medium">cauchy.link</emph>, was inspired by an unusual
+      link function sometimes used in generalized linear regression models. Also, *.link domain
+      names only cost $5 per year &#x1F642. Accordingly, all of the <a class="font-medium text-blue-600 dark:text-blue-500 hover:underline" href="https://github.com/erikperkins/cauchy" target = "_blank">component microservices</a>
+      are named after French mathematicians.
+    </p>
+  </div>
 </div>
+
+<br/>
+<hr>
+<br/>
 
 <div class="grid place-items-center" >
-  <svg id="map" width="800" height="600"></svg>
+  <h1 class="bg-white border-gray-200 font-bold text-center text-2xl py-4">
+    Data Applications
+  </h1>
 </div>
 
-<div class="grid h-48 place-items-center">
-  <table id="messages" class="border-separate"></table>
+<br/>
+
+<div class="grid grid-cols-1 gap-16 place-items-center font-semibold text-xl">
+  <div class="items-center text-center hover:bg-slate-50 p-4 rounded-lg border-2 border-slate-50">
+    <a href="/taxi">
+      <img class="mx-auto mb-2 h-[256px] rounded" src={static_path(@conn, "/images/nyc-taxi.png")}>
+      New York City Taxi Ride Tips
+    </a>
+  </div>
 </div>
 
-<div class="grid grid-cols-3">
-  <p></p>
-  <p class="place-self-center">
-    New York City's Taxi and Limousine Commission divides the city up into 263 taxi zones. Data from
-    each cab trip is made publicly available on the city's <a href="https://www.nyc.gov/site/tlc/about/tlc-trip-record-data.page">website</a>.
-    This page shows a map of the taxi zones, with a live stream of selected trip data.
-  </p>
-  <p></p>
-</div>
-
-
-<script defer phx-track-static type="text/javascript" src={~p"/assets/home.js"}></script>
+<script defer phx-track-static type="text/javascript" src={~p"/assets/app.js"}></script>

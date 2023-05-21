@@ -70,5 +70,11 @@ config :swoosh, :api_client, false
 
 config :kaffe,
        consumer: [
-         consumer_group: "dev"
+         endpoints: ["kafka-service.kafka.svc.cluster.local": 9092],
+         topics: ["tips"],
+         consumer_group: "dev",
+         message_handler: Pascal.Taxi.Consumer,
+         offset_reset_policy: :reset_to_latest,
+         max_bytes: 500_000,
+         worker_allocation_strategy: :worker_per_topic_partition
        ]

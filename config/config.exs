@@ -31,7 +31,7 @@ config :esbuild,
   version: "0.14.41",
   default: [
     args:
-      ~w(js/app.js js/home.js --bundle --target=es2017 --outdir=../priv/static/assets --external:/fonts/* --external:/images/*),
+      ~w(js/app.js js/taxi.js --bundle --target=es2017 --outdir=../priv/static/assets --external:/fonts/* --external:/images/*),
     cd: Path.expand("../assets", __DIR__),
     env: %{"NODE_PATH" => Path.expand("../deps", __DIR__)}
   ]
@@ -59,7 +59,7 @@ config :phoenix, :json_library, Jason
 config :kaffe,
   consumer: [
     endpoints: ["kafka-service.kafka.svc.cluster.local": 9092],
-    topics: ["trips"],
+    topics: ["tips"],
     consumer_group: "pascal",
     message_handler: Pascal.Taxi.Consumer,
     offset_reset_policy: :reset_to_latest,

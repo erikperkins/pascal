@@ -1,9 +1,9 @@
 import d3 from "../vendor/d3.min.js"
 import {Socket} from "phoenix"
 
-let d3socket = new Socket("/socket", {params: {token: window.userToken}})
-d3socket.connect()
-let d3channel = d3socket.channel("stream:taxi", {})
+let socket = new Socket("/socket", {params: {token: window.userToken}})
+socket.connect()
+let channel = socket.channel("stream:taxi", {})
 
 let messagesContainer = document.querySelector("#messages")
 
@@ -93,7 +93,11 @@ fetch("json/nyc_taxi_zones.geojson")
     var trips = []
     var trip_id = 0
 
-    d3channel.on("trip", payload => {
+    channel.on("trip", payload => {
+      if (payload.pickup_location_id > 263 || payload.dropoff_location_id > 263) {
+        return null
+      }
+
       trip_id += 1
       payload.trip_id = trip_id
 
@@ -155,7 +159,7 @@ fetch("json/nyc_taxi_zones.geojson")
         .attr('fill', landColor)
     })
 
-    d3channel.join()
+    channel.join()
       .receive("ok", resp => { console.log("Joined successfully", resp) })
       .receive("error", resp => { console.log("Unable to join", resp) })
   })

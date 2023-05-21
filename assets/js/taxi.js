@@ -38,16 +38,20 @@ fetch("json/nyc_taxi_zones.geojson")
       dropoff.textContent = `${locations[message.dropoff_location_id]?.zone}`
       html.appendChild(dropoff)
 
-      let percent_difference = Math.abs(message.predicted_tip - message.tip_amount) / (message.tip_amount + 0.01)
+      let percent_error = Math.abs(message.predicted_tip - message.tip_amount) / (message.tip_amount + 0.01)
+      let absolute_error = Math.abs(message.predicted_tip - message.tip_amount)
+      let mean_absolute_error = 0.67
 
-      if (percent_difference > 0.15) {
-        console.log('Bad prediction!')
+      if (absolute_error > mean_absolute_error) {
         html.setAttribute("style", "background-color: lavenderblush;")
+      }
+
+      if (absolute_error < mean_absolute_error) {
+        html.setAttribute("style", "background-color: #e0ffe0;")
       }
 
       return row.innerHTML
     }
-
 
     const chartWidth = 800
     const chartHeight = 600

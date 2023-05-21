@@ -1,6 +1,41 @@
-<div class="grid grid-cols-1 gap-16 place-items-center font-semibold text-xl">
+<div class="grid grid-cols-1 gap-16 place-items-center">
   <div>
-    <a href="/taxi">New York City Taxi Data</a>
+    <p>
+      This website is an exhibition of machine learning and ML ops projects. The web application and
+      associated microservices are deployed in an AWS <a class="font-medium text-blue-600 dark:text-blue-500 hover:underline" href="https://grafana.cauchy.link" target = "_blank">Kubernetes cluster</a>.
+      The system is supported by a number of <a class="font-medium text-blue-600 dark:text-blue-500 hover:underline" href="/admin" target = "_blank">services</a>
+      for CI/CD, monitoring, alerting, unstructured storage, etc. This system is designed with a focus
+      on scalability, resiliency, and streaming data. This website is a working example of the modern
+      data science full stack.
+    </p>
+    <br/>
+    <p>
+      The domain name, <emph class="font-medium">cauchy.link</emph>, was inspired by an unusual
+      link function sometimes used in generalized linear regression models. Also, *.link domain
+      names only cost $5 per year &#x1F642. Accordingly, all of the <a class="font-medium text-blue-600 dark:text-blue-500 hover:underline" href="https://github.com/erikperkins/cauchy" target = "_blank">component microservices</a>
+      are named after French mathematicians.
+    </p>
+  </div>
+</div>
+
+<br/>
+<hr>
+<br/>
+
+<div class="grid place-items-center" >
+  <h1 class="bg-white border-gray-200 font-bold text-center text-2xl py-4">
+    Data Applications
+  </h1>
+</div>
+
+<br/>
+
+<div class="grid grid-cols-1 gap-16 place-items-center font-semibold text-xl">
+  <div class="items-center text-center">
+    <a href="/taxi">
+      <img class="mx-auto h-[256px]" src={static_path(@conn, "/images/nyc-taxi.png")}>
+      New York City Taxi Ride Tips
+    </a>
   </div>
 </div>
 

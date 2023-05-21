@@ -1,19 +1,20 @@
 <div class="grid place-items-center" >
   <h1 class="bg-white border-gray-200 font-bold text-center text-4xl py-4">
-    NYC Taxi Cab Tips
+    NYC Taxi Ride Tips
   </h1>
 
   <div class="grid grid-cols-1 place-items-center py-8 px-8">
     <p>
       New York City's Taxi and Limousine Commission <a class="font-medium text-blue-600 dark:text-blue-500 hover:underline" href="https://www.nyc.gov/site/tlc/about/tlc-trip-record-data.page" target = "_blank">publishes</a>
       data collected from the yellow taxi cab services in the city. This page shows a stream of
-      predicted tip amounts based on that data. Tip predictions which differ from the actual tip
-      by more than 20% are highlighted.
+      predicted tip amounts based on that data. Taxi trips are shown every second. Tip predictions
+      which are greater than the model's mean absolute error ($0.67) are highlighted in red; predictions
+      which are less than the mean absolute error are highlighted in green.
     </p>
     <br/>
     <p>
-      The map shows the pickup and dropoff zones for each trip, pickups in blue and dropoffs in orange.
-      New York City is divided into 263 of these zones. Most of the traffic is confined to Manhattan,
+      New York City is divided into 263 taxi zones. The map below shows the pickup and dropoff zones for
+      each trip, pickups in blue and dropoffs in orange. Most of the traffic is confined to Manhattan,
       but note that the three major airports in New York City - JFK in the lower right, LaGuardia in the
       middle, and Newark in the lower left - show a significant amount of traffic.
     </p>
@@ -36,19 +37,30 @@
   <div class="grid grid-cols-1 place-items-center py-8 px-8">
     <p>
       The data stream for this page is produced by taking taxi trip records from 2022, and pushing
-      them into a Kafka message topic. Each record is retrieved according to the time which the trip
-      occurred, so this page shows live trips, but exactly one year old. An <a class="font-medium text-blue-600 dark:text-blue-500 hover:underline" href="https://github.com/erikperkins/bossut" target = "_blank">event producer microservice</a>
+      them into an <a class="font-medium text-blue-600 dark:text-blue-500 hover:underline" href="https://kafka.apache.org/" target = "_blank">Apache Kafka</a>
+      message topic. Each record is retrieved according to the time at which the trip
+      occurred, so this page shows "live" trips, just exactly one year old. An <a class="font-medium text-blue-600 dark:text-blue-500 hover:underline" href="https://github.com/erikperkins/bossut" target = "_blank">event producer microservice</a>
       extracts the relevant trip records each second. A <a class="font-medium text-blue-600 dark:text-blue-500 hover:underline" href="https://github.com/erikperkins/mariotte" target = "_blank">prediction microservice</a>
       consumes the records from Kafka, generates tip predictions, and republishes them to a separate topic,
-      which the front end website subsequently consumes.
+      which the <a class="font-medium text-blue-600 dark:text-blue-500 hover:underline" href="https://github.com/erikperkins/pascal" target = "_blank">front end website</a>
+      subsequently consumes.
     </p>
     <br/>
     <p>
-      The underlying model is an XGBoost regression tree. The target variable, the tip amount, is
+      The underlying model is an <a class="font-medium text-blue-600 dark:text-blue-500 hover:underline" href="https://xgboost.readthedocs.io/en/stable/" target = "_blank">XGBoost</a>
+      regression tree. The target variable, the tip amount, is
       nonnegative and zero-inflated, so the model uses a Tweedie deviance loss function, with the
       Tweedie power determined by cross validation. Covariates include passenger count, fare amount,
       trip distance, and various surcharges. Pickup and dropoff location and time of day are not
       currently included. Model artifacts are tracked using <a class="font-medium text-blue-600 dark:text-blue-500 hover:underline" href="https://mlflow.cauchy.link" target = "_blank">MlFlow</a>.
+    </p>
+    <br/>
+    <p>
+      This visualization is made from scratch with <a class="font-medium text-blue-600 dark:text-blue-500 hover:underline" href="https://d3js.org/" target = "_blank">D3.js</a>.
+      The <a class="font-medium text-blue-600 dark:text-blue-500 hover:underline" href="https://www.phoenixframework.org/" target = "_blank">Elixir Phoenix</a>
+      web framework, a better Rails built on a better Ruby, using the reliable and performant
+      <a class="font-medium text-blue-600 dark:text-blue-500 hover:underline" href="https://www.erlang.org/blog/a-brief-beam-primer/" target = "_blank">Erlang BEAM VM</a>,
+      hosts the front end and facilitates the streaming websocket data which feeds this visualization.
     </p>
   </div>
   <svg id="map" width="800" height="600"></svg>
